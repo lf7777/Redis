@@ -1,0 +1,79 @@
+一. Hash 类型
+
+
+1. 操 作 哈 希 表 :
+
+    <1> hset 
+
+        设置 哈希表的 key 和 value
+
+        hset hash_name key value key value
+
+        可单独添加 不存在的 key value 不会覆盖
+
+        也可 群体添加
+
+        示 例 :
+
+        hset user:001 name zhangsan
+
+    <2> hmset 
+
+        群体设置
+
+        hmset hash_name key value key value
+
+    <3> hsetnx
+
+        设置一个 哈希表中 不存在的键和值
+
+        hsetnx key value
+
+    <4> hdel
+
+        删除一个或多个 哈希表中的 字段
+        
+        hdel hash_table field field field
+
+
+2. 查 看 哈 希 中 的 数 据 :
+
+    <1> hget
+
+        hget key field
+
+        示 例 :
+
+        hget user name
+
+        return 张三
+
+    <2> hmget
+
+        群体查找
+
+        hmget hash_name key key key
+
+    <3> hkeys 
+
+        查找 hash_table all key
+
+        hkeys hash_name
+
+    <4> hvals
+
+        查找 hash_table all values
+
+        hvals hash_table
+
+    <4> hgetall
+
+        查找所有 key 与 value
+
+        hgetall hash_table
+
+    <5> hlen 
+
+        查找 key 的数量
+
+        hlen hash_table

@@ -1,0 +1,7 @@
+一. 基 本 :
+
+    <1> 安 装 :
+
+        sudo pip3 install redis
+
+    

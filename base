@@ -1,0 +1,328 @@
+Redis 五 大 数 据 类 型 :
+
+    
+    字 符 串 
+
+    列 表 
+
+    哈 希 表 
+
+    无 序 集 合 
+
+    有 序 集 合
+
+    <1> type key 查看 key类型 
+
+
+一. Redis 服 务 相 关 :
+
+
+    <1> 安 装 : 
+
+        sudo apt-get install redis-server
+
+    <2> 查 看 版 本 : 
+
+        redis-server --version
+
+    <3> 开 启 服 务 :
+
+        service redis start
+
+    <4> 关 闭 服 务 :
+
+        service redis stop
+    
+    <5> 启 动 客 户 端 : (开启服务后,才可开启客户端)
+
+        redis-cli
+
+    <6> 删除当前所在库的所有数据 :
+
+        flushdb
+
+        示 例 : flushdb (直接输入flushdb)
+
+    <7> 删除所有数据 :
+
+        flushall
+
+        示 例 : flushall (直接删除所有数据)
+
+
+    开启服务的另一种方式 (打开的服务器非service开启的服务器)
+
+        <1> 开 启 服 务 :
+
+            在未使用 service redis start 的情况下(如果使用了则无法开启)
+
+            redis-server
+
+            保持此终端的开启状态,用其他终端 登录 redis-cli
+
+        <2> 关 闭 服 务 :
+
+            ctrl + c 关闭 redis-server 即可
+
+
+英 文 ： 
+
+        expire    到期
+
+        persist   坚持
+
+
+
+二. 基 本 操 作 :
+
+
+    一共有 0 ~ 15 , 共 16 个 库 , 无 表.
+
+    <1> 库 切 换 :
+
+        select 库号 :
+
+        示 例 :
+
+        select 1
+
+        进入 1号库
+
+    <2> 移 动 库 :
+
+        move key 库名
+
+        示 例 : move aaa 2
+
+            移动到 2号库
+
+
+
+三. 键 值 设 置 :
+
+
+    <1> setnx
+
+        setnx指令 不会覆盖已有的值, set 会覆盖
+
+        setnx 若键已存在 返回 0 表示失败
+
+        setnx key value
+
+        示 例 :
+
+        setnx a 5 
+
+    <2> set 
+
+        设置 键 值
+
+        示 例 : set k1 aaa
+
+    <3> setex
+        
+        设置 键 有效时间(秒) 值
+
+        setex key seconds value 
+
+    <4> mset 
+
+        批量设置 键 值
+
+        mset 键1 值1 键2 值2 键3 值3
+
+    <5> msetnx
+        
+        批量设置 不存在的 键 值 (如已存在,全失败,不存在,全成功)
+
+        msetnv 键1 值1 键2 值2 键3 值3
+
+    <6> setrange 
+
+        替换 内容 (替换的长度 由新字符串长度决定)
+
+        setrange key start_index value
+
+        示 例 :
+
+        set name 123456
+
+        setrange name 2 hh
+
+        return 12hh45
+
+    <7> getset 
+
+        获取到值 然后 更新
+
+        getset a oo
+
+        返回的是查看的值,再查看是 'oo'
+
+    <8> incr
+
+        让指定键的值 自增 +1 (必须为整数)
+
+        a  1
+
+        incr a
+
+        get a 
+
+        a  2
+
+    <9> incrby
+
+        让指定键的值 自增 指定数 (必须为整数)
+
+        a  1
+
+        incrby a 10
+
+        a  11
+
+    <10>decr 
+
+        让指定键的值 自增 -1 (必须为整数)
+
+        a  1
+
+        decr a
+        
+        a  0
+
+    <11>decrby
+
+        让指定键的值 自增 指定数 (必须为整数)
+
+        a  1
+
+        decrby a 10
+        
+        a  -9
+    
+    <12>append
+
+        给指定 key 的 value 追加 value,返回 新 value 的长度
+
+        append key 要追的value
+
+        set name a
+
+        append name bcd
+
+        get name abcd
+
+
+
+四. 删 除 :
+
+    <1> del key
+
+        删除 key
+
+        del hash_table 一定注意!!! 会删除一个哈希表.
+
+    <2> del key1 key2
+
+        删多个 key
+
+
+
+五. 查 看 键 或 值 :
+
+
+    <1> keys *
+
+        查看所有键
+
+        示 例 : keys *
+
+    <2> ttl key
+
+        查看剩余有效时间
+
+    <3> 查 看 类 似 通配符 %号的值:
+
+        示 例 : 
+
+        keys *b    末尾是b的
+
+        keys b*    开头是b的
+
+    <4> exists key
+
+        存在key返回1,不存在返回0
+
+    <5> get 
+
+        get key
+    
+        查看一个值:
+    
+        示 例 : get k1 
+
+            return aaa
+
+    <6> mget 
+
+        批量获取 值
+
+        mget key1 key2 key3
+
+    <7> getrange
+
+        获取 键 指定范围的值
+
+        getrange key start range
+
+        getrange a 0 3
+
+    <8> strlen
+
+        求长度
+
+        strlen key 
+
+        返回 值的长度
+
+
+
+六. 修 改 :
+
+    
+    <1> set 
+
+        直接覆盖原 key 的 value
+
+    
+七. 设 置 过 期 相 关 : 
+
+
+    设置时间后 到了指定时间 键消失
+
+    <1> expire key 100
+
+        设置多少秒后过期(单位是秒)
+
+    <2> ttl key
+
+        查看还剩多少秒 过期
+
+        return 
+
+            (1) 固定的秒数后　过期
+
+            (2) -1            永不过期
+
+            (3) -2            已过期
+
+    <3> 取消 过期时间 
+
+        persist key
+
+    <4> setex key value
+
+        设置带过期时间的 key 
+
+        setex key seconds value

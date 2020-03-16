@@ -1,0 +1,193 @@
+一. 集 合 :
+
+    <1> sdiff
+
+        两个集合的 差集 (set1 有 set2 没有的)
+
+        sdiff set1 set2
+
+        差 集 保 存 :
+
+        sdiffstore newset set1 set2
+
+    <2> sinter
+
+        两个集合的 交集 (set1 有 set2 也有的)
+
+        交 集 保 存 :
+
+        sinterstore newset set1 set2
+
+    <3> sunion
+
+        两个集合的 并集 (set1 和 set2 都算在一起)
+
+        并 集 保 存 :
+
+        sunionstore newset set1 set2
+
+
+二. 添 加 数 据 :
+
+    <1> sadd 
+
+        sadd set1 value
+
+
+三. 查 看 数 据 :
+
+    <1> smembers
+
+        查看 集合中 所有数据
+
+        smembers key
+
+    <2> scard
+
+        查看 集合元素 的个数
+
+        scard key
+
+    <3> sismember 
+
+        判断是否在集合中
+
+        sismember set1 member
+
+        sismember set1 abc
+
+
+四. 删 除 数 据 :
+
+    <1> srem
+
+        删除 指定 members1 members2 (可同时删除多个)
+
+        srem set1 mem1 mem2
+
+    <2> spop
+
+        随机删
+
+        spop set1 count (默认是1个,或指定次数)
+
+
+五. 修 改 数 据 :
+
+    <1> smove
+
+        将 set1 数据 移动到 set2 (只能移动一个)
+
+        smove set1 set2 abc
+
+
+六. 有 序 集 合 : (Sorted Set By Score)
+
+
+    同样是 String类型元素的集合,且不允许成员重复.
+
+    不同的是每个元素都会关丽娜一个double类型的分数,redis正是通过分数来为集合的
+
+    成员进行从大到小的排序
+
+    有序集合成员是唯一的,但分数却可以重复.
+
+    作 用 : 给分数
+
+            做排序
+
+            指定区间 等操作
+
+
+添 加 :
+
+    <1> zadd 
+
+        zadd zset1 score value
+
+        示 例 :
+
+        zadd zset1 40 zhangsan
+
+    <2> zincrby
+
+        增加分数 (increment为要为成员增加的分数)
+
+        zincrby key increment member
+
+
+查 看 :
+
+    <1> zrange 
+
+        只查看集合的元素
+
+        zrange zset1 0 -1
+
+    <2> zrange zset1 0 -1 withscores
+
+        查看元素 并 附带分数 (按分数 升序 排序)
+
+    <3> zrevrange
+
+        查看元素 并 附带分数 (按分数 倒序 排列)
+
+    <4> zrank
+        
+        返回元素在 分数集合 中的排名 (升序顺序)
+
+        zrank zset1 member 
+
+    <5> zrevrank
+
+        返回元素在 分数集合 中的排名 (降序顺序)
+
+    <6> zrangebyscore
+
+        返回集合中 score 在给定区间的元素(包括两端,左闭右闭)
+
+        zrangebyscore zset1 min max withscores (不写withscores则不带分数)
+
+    <7> zcount
+
+        返回集合中给定区间的数量
+
+        zcount zset1 min max withscores (不写withscores则不带分数)
+
+    <8> zcard
+
+        返回集合中元素的个数
+
+        zcard zset1
+
+    <9> zscore zset1 value
+
+        返回集合中 某value 的 score
+
+        zscore zset1 wangwu
+
+        
+
+删 除 :
+
+    <1> zrem 
+
+        删除元素
+
+        zrem zset1 member
+
+    <2> zremrangebyrank
+
+        删除 集合中 排名在指定区间的元素 (从小到大)
+
+        zremrangebyrank zset1 start_index stop_index
+
+        zremrangebyrank zset 1 2
+
+    <3> zremrangebyscore
+
+        删除 集合中 分数在给指定区间的元素
+
+        
+
+    
